@@ -1,0 +1,23 @@
+group 'LastStandStudios'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
+
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile 'org.lwjgl:lwjgl:3.0.0b-SNAPSHOT'
+    compile 'org.lwjgl:lwjgl-natives-linux:3.0.0a-SNAPSHOT'
+    compile 'org.lwjgl:lwjgl-natives-macosx:3.0.0a-SNAPSHOT'
+    compile 'org.lwjgl:lwjgl-natives-windows:3.0.0a-SNAPSHOT'
+    compile 'org.lwjgl:lwjgl-platform:3.0.0b-SNAPSHOT'
+}
