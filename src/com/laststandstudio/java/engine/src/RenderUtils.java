@@ -1,9 +1,18 @@
 package com.laststandstudio.java.engine.src;
 
-import java.awt.*;
+import com.laststandstudio.java.engine.src.images.PNGDecoder;
+import com.laststandstudio.java.engine.src.images.Texture;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
-import static org.lwjgl.opengl.GL11.glClearColor;
-import static org.lwjgl.opengl.GL11.glColor4f;
+import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+
+import static org.lwjgl.opengl.GL11.*;
 
 /**
  * Created by joshu on 8/25/2015.
@@ -41,5 +50,35 @@ public class RenderUtils {
 
     private static float nC(Integer cV) {
         return ((float) cV) / 255f;
+    }
+
+    public static void renderSprite() {
+//        new FileInputStream("Z:\\xampp\\htdocs\\0.png");
+        try {
+            Texture texture = new Texture(new File("Z:\\xampp\\htdocs\\0.png").toURI().toURL());
+            texture.bind();
+
+            float u = 0f;
+            float v = 0f;
+            float u2 = 1f;
+            float v2 = 1f;
+
+            float x = 100, y = 100, width = 1000, height = 700;
+            glColor4f(1f, 1f, 1f, 1f);
+            glBegin(GL_QUADS);
+            {
+                glTexCoord2f(u, v);
+                glVertex2f(x, y);
+                glTexCoord2f(u, v2);
+                glVertex2f(x, y + height);
+                glTexCoord2f(u2, v2);
+                glVertex2f(x + width, y + height);
+                glTexCoord2f(u2, v);
+                glVertex2f(x + width, y);
+            }
+            glEnd();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -27,6 +27,8 @@ public class MainClass {
                     glVertex2f(100 + 200, 100 + 200);
                 }
                 glEnd();
+
+                RenderUtils.renderSprite();
             });
             RenderUtils.setClearColor(Color.BLACK);
             Engine.getInstance().start();

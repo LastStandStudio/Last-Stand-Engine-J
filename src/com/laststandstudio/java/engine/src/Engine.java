@@ -115,9 +115,10 @@ public class Engine {
         GLContext.createFromCurrent(); // use this line instead with the 3.0.0a build
 
         RenderUtils.getClearColor();
+        glEnable(GL_TEXTURE_2D);
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        glOrtho(0, 1200, 0, 900, 1, -1);
+        glOrtho(0, 1200, 0, 900, -1, 1);
         glMatrixMode(GL_MODELVIEW);
 
         while (glfwWindowShouldClose(Engine.getInstance().getWindow()) == GL_FALSE) {
