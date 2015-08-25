@@ -1,6 +1,5 @@
 package com.laststandstudio.java.engine.src;
 
-import net.d4.src.Renderable;
 import org.lwjgl.Sys;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
@@ -10,11 +9,12 @@ import org.lwjgl.opengl.GLContext;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import static org.lwjgl.glfw.Callbacks.*;
+import static org.lwjgl.glfw.Callbacks.errorCallbackPrint;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.system.MemoryUtil.*;
+import static org.lwjgl.system.MemoryUtil.NULL;
 
 
 /**
@@ -39,10 +39,12 @@ public class Engine {
 
     private ArrayList<Renderable> renderableArrayList;
 
+    private HashMap<Integer, ArrayList<Renderable>> renderableLayerMap;
 
     private Engine() {
         System.out.println("Hello LWJGL " + Sys.getVersion() + "!");
         renderableArrayList = new ArrayList<>();
+        renderableLayerMap = new HashMap<>();
     }
 
     public long getWindow() {
@@ -60,7 +62,6 @@ public class Engine {
     public void init(int WIDTH, int HEIGHT) {
         glfwSetErrorCallback(errorCallback = errorCallbackPrint(System.err));
 
-        // Initialize GLFW. Most GLFW functions will not work before doing this.
         if (glfwInit() != GL11.GL_TRUE)
             throw new IllegalStateException("Unable to initialize GLFW");
 
@@ -113,17 +114,22 @@ public class Engine {
         //        GL.createCapabilities(); // valid for latest build
         GLContext.createFromCurrent(); // use this line instead with the 3.0.0a build
 
-        glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+        RenderUtils.getClearColor();
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        glOrtho(0, 800, 0, 600, 1, -1);
+        glOrtho(0, 1200, 0, 900, 1, -1);
         glMatrixMode(GL_MODELVIEW);
 
         while (glfwWindowShouldClose(Engine.getInstance().getWindow()) == GL_FALSE) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
 
-            renderableArrayList.forEach(renderable -> renderable.run());
+            for (int i = 1; i <= 8; i++) {
+                try {
+                    renderableLayerMap.get(i).forEach(Renderable::run);
+                } catch (Exception e) {
+                }
+            }
 
             glfwSwapBuffers(Engine.getInstance().getWindow()); // swap the color buffers
             glfwPollEvents();
@@ -131,8 +137,11 @@ public class Engine {
 
     }
 
-    public void addRender(Renderable renderable) {
-        renderableArrayList.add(renderable);
+    public void addRender(Integer integer, Renderable renderable) {
+        if (integer > 8) integer = 8;
+        if (integer < 1) integer = 1;
+        if (!renderableLayerMap.containsKey(integer)) renderableLayerMap.put(integer, new ArrayList<>());
+        renderableLayerMap.get(integer).add(renderable);
     }
 
     public enum EngineState {

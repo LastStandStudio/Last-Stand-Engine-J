@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Last-Stand-Engine-J.iml" filepath="$PROJECT_DIR$/Last-Stand-Engine-J.iml" />
-      <module fileurl="file://$PROJECT_DIR$/LastStandEngine.iml" filepath="$PROJECT_DIR$/LastStandEngine.iml" />
     </modules>
   </component>
 </project>

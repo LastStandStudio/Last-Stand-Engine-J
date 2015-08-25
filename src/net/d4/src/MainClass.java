@@ -13,7 +13,7 @@ public class MainClass {
     MainClass() {
         try {
             Engine.getInstance().init(1200, 900);
-            Engine.getInstance().addRender(() -> {
+            Engine.getInstance().addRender(1, () -> {
                 glBegin(GL_TRIANGLES);
                 {
                     glColor3f(1f, 1f, 0f);
