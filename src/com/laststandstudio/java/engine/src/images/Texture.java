@@ -5,6 +5,7 @@ import org.lwjgl.opengl.GL12;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.net.URL;
 import java.nio.ByteBuffer;
 
@@ -24,19 +25,19 @@ public class Texture {
     public static final int CLAMP_TO_EDGE = GL12.GL_CLAMP_TO_EDGE;
     public static final int REPEAT = GL_REPEAT;
 
-    public Texture(URL pngRef) throws IOException {
+    public Texture(URI pngRef) throws IOException {
         this(pngRef, GL_NEAREST);
     }
 
-    public Texture(URL pngRef, int filter) throws IOException {
+    public Texture(URI pngRef, int filter) throws IOException {
         this(pngRef, filter, GL12.GL_CLAMP_TO_EDGE);
     }
 
-    public Texture(URL pngRef, int filter, int wrap) throws IOException {
+    public Texture(URI pngRef, int filter, int wrap) throws IOException {
         InputStream input = null;
         try {
             //get an InputStream from our URL
-            input = pngRef.openStream();
+            input = pngRef.toURL().openStream();
 
             //initialize the decoder
             PNGDecoder dec = new PNGDecoder(input);

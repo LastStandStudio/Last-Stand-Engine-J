@@ -40,6 +40,7 @@ public class Engine {
     private ArrayList<Renderable> renderableArrayList;
 
     private HashMap<Integer, ArrayList<Renderable>> renderableLayerMap;
+    private int x = 0, y = 0;
 
     private Engine() {
         System.out.println("Hello LWJGL " + Sys.getVersion() + "!");
@@ -79,8 +80,31 @@ public class Engine {
         glfwSetKeyCallback(window, keyCallback = new GLFWKeyCallback() {
             @Override
             public void invoke(long window, int key, int scancode, int action, int mods) {
-                if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
-                    glfwSetWindowShouldClose(window, GL_TRUE); // We will detect this in our rendering loop
+
+                switch (key) {
+                    case GLFW_KEY_ESCAPE:
+                        glfwSetWindowShouldClose(window, GL_TRUE); // We will detect this in our rendering loop
+                        break;
+                    case GLFW_KEY_LEFT:
+                        x += 5;
+                        break;
+                    case GLFW_KEY_RIGHT:
+                        x -= 5;
+                        break;
+                    case GLFW_KEY_UP:
+                        y += 5;
+                        break;
+                    case GLFW_KEY_DOWN:
+                        y -= 5;
+                        break;
+                    default:
+                        break;
+                }
+                glMatrixMode(GL_PROJECTION);
+                glLoadIdentity();
+                glOrtho(x, 1200 + x, 900 + y, y, -1, 1);
+                glMatrixMode(GL_MODELVIEW);
+
             }
         });
 
@@ -100,6 +124,10 @@ public class Engine {
 
         // Make the window visible
         glfwShowWindow(window);
+
+        //        GL.createCapabilities(); // valid for latest build
+        GLContext.createFromCurrent(); // use this line instead with the 3.0.0a build
+
     }
 
     public EngineState getCurrentEngineState() {
@@ -111,14 +139,12 @@ public class Engine {
     }
 
     public void start() {
-        //        GL.createCapabilities(); // valid for latest build
-        GLContext.createFromCurrent(); // use this line instead with the 3.0.0a build
 
         RenderUtils.getClearColor();
         glEnable(GL_TEXTURE_2D);
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        glOrtho(0, 1200, 0, 900, -1, 1);
+        glOrtho(0, 1200, 900, 0, -1, 1);
         glMatrixMode(GL_MODELVIEW);
 
         while (glfwWindowShouldClose(Engine.getInstance().getWindow()) == GL_FALSE) {
