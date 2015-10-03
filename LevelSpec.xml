@@ -2,14 +2,12 @@
     <!-- Static is relative to window, dynamic is relative to world-->
     <static>
         <image type="web">
-            <link>http://google.com/favicon.png</link>
-            <x>10</x>
-            <y>15</y>
-            <width>50</width>
-            <height>100</height>
+            <link>https://www.cloudflare.com/a/static/nexp=7d656f7/assets/icons-seee324dde5.png</link>
+            <x>600</x>
+            <y>600</y>
         </image>
         <image type="file">
-            <link>images/test.png</link>
+            <link>Z:/xampp/htdocs/0.png</link>
             <x>30</x>
             <y>43</y>
         </image>

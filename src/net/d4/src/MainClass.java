@@ -45,9 +45,9 @@ public class MainClass {
                 glEnd();
             });
 
-            Engine.getInstance().addRender(3, () -> {
-                    RenderUtils.renderSprite(texture, 10, 10, texture.width, texture.height);
-            });
+//            Engine.getInstance().addRender(3, () -> {
+//                    RenderUtils.renderSprite(texture, 10, 10, texture.width, texture.height);
+//            });
             RenderUtils.setClearColor(Color.BLACK);
             Engine.getInstance().start();
 
