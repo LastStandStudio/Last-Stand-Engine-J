@@ -1,0 +1,31 @@
+<world name="TestWorld">
+    <!-- Static is relative to window, dynamic is relative to world-->
+    <static>
+        <image type="web">
+            <link>http://google.com/favicon.png</link>
+            <x>10</x>
+            <y>15</y>
+            <width>50</width>
+            <height>100</height>
+        </image>
+        <image type="file">
+            <link>images/test.png</link>
+            <x>30</x>
+            <y>43</y>
+        </image>
+    </static>
+    <dynamic>
+        <image type="web">
+            <link>http://google.com/favicon.png</link>
+            <x>300</x>
+            <y>400</y>
+            <width>50</width>
+            <height>100</height>
+        </image>
+        <image type="file">
+            <link>images/test.png</link>
+            <x>20</x>
+            <y>20</y>
+        </image>
+    </dynamic>
+</world>

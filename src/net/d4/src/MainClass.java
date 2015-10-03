@@ -3,6 +3,7 @@ package net.d4.src;
 import com.laststandstudio.java.engine.src.Engine;
 import com.laststandstudio.java.engine.src.RenderUtils;
 import com.laststandstudio.java.engine.src.images.Texture;
+import com.laststandstudio.java.engine.src.world.World;
 
 import java.awt.*;
 import java.io.File;
@@ -24,6 +25,8 @@ public class MainClass {
         try {
             Engine.getInstance().init(1200, 900);
 
+            World world = new World();
+            world.renderWorld();
             try {
                 texture = new Texture(new File("Z:\\xampp\\htdocs\\0.png").toURI());
             } catch (IOException e) {
@@ -43,11 +46,7 @@ public class MainClass {
             });
 
             Engine.getInstance().addRender(3, () -> {
-                glBegin(GL_QUADS);
-                {
                     RenderUtils.renderSprite(texture, 10, 10, texture.width, texture.height);
-                }
-                glEnd();
             });
             RenderUtils.setClearColor(Color.BLACK);
             Engine.getInstance().start();
